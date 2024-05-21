@@ -5,8 +5,6 @@ analysing DEEPPi and DEEPPd fmri scans
 
 Created by Javkhlan Byambadorj javkhlan.byambadorj@camh.ca
 
-**SEE STARTUP.MD FOR INSTRUCTIONS ON CREATING A GIT REPO**
-
 Project Organization
 -----------------------------------
 
