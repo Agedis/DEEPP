@@ -1,0 +1,13 @@
+---
+title: "DEEPP analyses"
+author: "Javkhlan Byambadorj"
+date: "`r Sys.Date()`"
+output: bookdown::gitbook
+github-repo: https://github.com/Agedis/DEEPP
+description: "analysing DEEPPi and DEEPPd fmri scans"
+fontsize: 10pt
+monofontoptions: "Scale=0.5"
+classoption: landscape
+---
+
+# The index page

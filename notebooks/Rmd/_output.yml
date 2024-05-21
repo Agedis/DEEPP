@@ -1,0 +1,21 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">R-stats for DEEPP project. </a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    edit:
+      link: https://github.com/Agedis/DEEPP/Rmd_rendered/%s
+    download: ["pdf"]
+    toolbar:
+      position: fixed
+    search: yes
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2
+    share:
+      github: yes
