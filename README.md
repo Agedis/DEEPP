@@ -11,7 +11,7 @@ Project Organization
 -----------------------------------
 
     .
-    ├── README.md          <- The top-level README
+    ├── README.md          <- The top-level 
     ├── .gitignore         <- Files to not upload to github - by default includes /data
     ├── LICENSE            <- usage license if applicable
     ├── data
