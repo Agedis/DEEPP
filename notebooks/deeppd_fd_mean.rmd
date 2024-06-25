@@ -1,0 +1,272 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+---
+  title: "DEEPPD FD-mean"
+output:
+  pdf_document: default
+html_document: default
+date: "2024-06-19"
+  
+```{r, echo = TRUE, results='hide'}
+# set the wd to where tsv file is located 
+setwd("/projects/jbyambadorj/DEEP_study/data/processed/DEEPPD/mriqc")
+
+# set up 
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(scales)
+data <- read.table('group_bold.tsv', header = TRUE, sep="\t")
+data.frame(data)
+data
+```
+
+
+```{r, echo = TRUE, results = 'hide'}
+# select fd_mean column only 
+
+fd_mean_data = select(data, bids_name, fd_mean)
+
+bids_name = pull(fd_mean_data, bids_name)
+score = pull(fd_mean_data, fd_mean)
+
+
+# create new column ses_number 
+myvar = c()
+
+for (sub in 2:8) {
+  for (j in 1:6) { 
+    for (i in 1:4)
+    { 
+      myvar = c(myvar, c(j))
+    }
+  }
+}
+
+# append extra ses06 to sub04 since it has 5 runs. 
+
+myvar = append(myvar, 6, 72)
+fd_mean_data$ses_number = myvar 
+
+fd_mean_data
+```
+
+
+```{r, echo = TRUE, results = 'hide'}
+
+# create new column id which contains run_number in the df 
+
+temp = c()
+
+for (sub_num in 2:8) {
+  for (ses_num in 1:6) {
+    for (run_num in 1:4) {
+      temp = append(temp, paste("0", run_num,
+                                sep=""))
+    }
+  }
+}
+
+# correct extra run05 in sub04-ses06
+temp = append(temp, "05", 72)
+fd_mean_data$run_id = temp
+
+# change run05 of sub05/ses04 (entry 89) into run04
+# since run 03 is missing 
+
+
+```
+
+
+Script for generating fd_mean vs acq_session plot for sub-CMH-0000002
+
+```{r}
+
+# The following reads off only from sub 02 data. 
+
+slice(fd_mean_data, 1:24) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB02 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+
+
+```
+
+
+SUB-CMH-0000003 Plot
+
+## SUB-03 is a patient 
+
+```{r}
+slice(fd_mean_data, 25:48) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB03 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+
+```
+SUBJECT 04 FD_MEAN PLOT 
+## SUB04 is a patient 
+```{r}
+slice(fd_mean_data, 49:73) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB04 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+
+```
+SUB-CMH000005 FD_MEAN PLOT
+
+## SUB-05 is a Patient 
+
+```{r}
+slice(fd_mean_data, 74:97) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB05 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+
+
+
+```
+
+SUB-CMH000006 FD_MEAN PLOT
+
+## Note: Not sure if SUB06 is a patient or control 
+```{r}
+slice(fd_mean_data, 98:121) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB06 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+
+
+
+```
+
+
+CMH-SUB000007 FD_MEAN PLOT
+
+##  CMH-SUB07 is a CONTROL
+```{r}
+slice(fd_mean_data, 122:145) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB07 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+
+
+
+```
+
+## CMH-SUB0000008 FD_MEAN PLOT
+
+## Not sure if SUB-08 is a patient or control. 
+```{r}
+slice(fd_mean_data, 146:169) %>%
+  group_by(ses_number) %>%
+  ggplot() + 
+  geom_point(aes(x = run_id, y = fd_mean, fill = as.factor(ses_number))) +
+  geom_line(aes(x = run_id, y = fd_mean, color = as.factor(ses_number), 
+                group = ses_number, linetype = as.factor(ses_number)), 
+            position = position_dodge(width = 0), lwd = 1.2) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(
+    x = "MRI acquisition", 
+    y = "FD_mean value", 
+    title = "SUB08 FD mean variability across acquisitions",
+    color = "session number",
+    fill = "session number",
+    linetype = "session number") + 
+  
+  facet_wrap(facets = "ses_number", nrow = 1, scale = "free_x") 
+```
+
+
+
+
