@@ -6,6 +6,8 @@ output:
 date: "2024-06-23"
 ---
 
+
+
 ```{r, echo = TRUE, results = 'hide', include = FALSE}
 # set the wd to where tsv file is located 
 setwd("/projects/jbyambadorj/DEEP_study/data/processed/DEEPPi/mriqc")
@@ -93,7 +95,7 @@ fd_mean_data$run_id = temp
 
 # rename run 0 in sub101/ses03 to run 06 (df entry 109)
 
-fd_mean_data$run_id[109] = "6"
+fd_mean_data$run_id[109] = "1"
 
 
 ```
@@ -184,7 +186,7 @@ slice(fd_mean_data, 31:52) %>%
 
 
 
-## archive/DEEPPi/SUB79/func file structure:
+archive/DEEPPi/SUB79/func file structure:
 
 ├── sub-CMH00000079_ses-05_task-rest_bold.json
 ├── sub-CMH00000079_ses-05_task-rest_bold.nii.gz
@@ -196,6 +198,8 @@ slice(fd_mean_data, 31:52) %>%
 ├── sub-CMH00000079_ses-05_task-rest_run-03_bold.nii.gz
 ├── sub-CMH00000079_ses-05_task-rest_run-04_bold.json
 └── sub-CMH00000079_ses-05_task-rest_run-04_bold.nii.gz
+
+confirmed task-rest_bold -> task-rest_run-01 and increment other runs by 1
 ```{r}
 
 # The following reads off only from sub 79 data. 
@@ -269,3 +273,5 @@ slice(fd_mean_data, 97:120) %>%
     facet_wrap(facets = "ses_number", nrow = 1, scales = "free_x") 
   
 ```
+
+
