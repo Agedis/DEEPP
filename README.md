@@ -30,8 +30,10 @@ Project Organization
 
 
 
-<pre> ```python def hello_world(): print("Hello, world!") ``` </pre>
-
+```python
+def hello_world():
+    print("Hello, world!")
+```
 
 
 
