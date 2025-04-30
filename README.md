@@ -1,8 +1,7 @@
 DEEPP
 ===============================================
 
-analysing DEEPPi and DEEPPd fmri scans
-
+Code repo for Deep phenotyping of Psychotic Disorders with resting state connectivity 
 Created by Javkhlan Byambadorj javkhlan.byambadorj@camh.ca
 
 Project Organization
@@ -28,7 +27,8 @@ Project Organization
     ├── code/src           <- Source code for use in this project (virtual environments, bash scripts, etc)
 
 
-
+Input files used for preprocessing steps in both DEEPPI and DEEPPD studies are stored in the directory: ```/mnt/tigrlab/projects/jbyambadorj/DEEP_study/data/raw
+```
 
 ```python
 def hello_world():
@@ -36,7 +36,3 @@ def hello_world():
 ```
 
 
-
-
-
-code is: 
