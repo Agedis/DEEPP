@@ -91,9 +91,3 @@ The script assumes that all functional runs within a session will likely have sa
 
 
 
-```python
-def hello_world():
-    print("Hello, world!")
-```
-
-
