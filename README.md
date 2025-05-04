@@ -36,14 +36,93 @@ In the above dir, the dir for DEEPPI study is left as a symbolic link pointing t
 /projects/jbyambadorj/DEEPPI_fmap_intended
 ```
 
-The processed data (both xcp-D, fmriprep, and mriqc) are located in the directory: 
+The preprocessed data from fMRIprep and xcp-D pipelines are located in the directory: 
 ```
 /projects/jbyambadorj/DEEP_study/data/processed
 ```
-In the above dir, you will find all the post and preprocessed data along with mriqc outputs in csv from the Summer. (mriQC was failing with the 
+In this dir, you will find all the post and preprocessed data along with mriqc csv outputs from the summer. (mriQC was failing for the 
 fmap intended for data, so you might need to rerun mriQC by changing the script to appropriate one) 
-Furthermore in this dir, you will find Glasser and Tian only parcellated timeseries files that I used mainly for the analysis. The below dirs are 
-organized based on 
+Furthermore in this dir, you will find Glasser and Tian only parcellated timeseries files that I used mainly for the analysis: 
+```
+/projects/jbyambadorj/DEEP_study/data/processed/inputs
+```
+Inside this dir, if you go to one of the study specific subdir, you will find the Glasser and Tian parcellated timeseries xcp-D outputs organized in the following way: 
+```
+jbyambadorj@noether:/projects/jbyambadorj/DEEP_study/data/processed/inputs/DEEPPI_rerun/sub-CMH00000207$ tree
+.
+├── ses-01
+│   ├── sub_cortical
+│   │   ├── sub-CMH00000207_ses-01_task-rest_run-01_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-01_task-rest_run-02_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   └── sub-CMH00000207_ses-01_task-rest_run-03_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   └── surface
+│       ├── sub-CMH00000207_ses-01_task-rest_run-01_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-01_task-rest_run-02_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       └── sub-CMH00000207_ses-01_task-rest_run-03_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+├── ses-02
+│   ├── sub_cortical
+│   │   ├── sub-CMH00000207_ses-02_task-rest_run-01_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-02_task-rest_run-02_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-02_task-rest_run-03_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   └── sub-CMH00000207_ses-02_task-rest_run-04_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   └── surface
+│       ├── sub-CMH00000207_ses-02_task-rest_run-01_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-02_task-rest_run-02_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-02_task-rest_run-03_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       └── sub-CMH00000207_ses-02_task-rest_run-04_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+├── ses-03
+│   ├── sub_cortical
+│   │   ├── sub-CMH00000207_ses-03_task-rest_run-01_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-03_task-rest_run-02_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-03_task-rest_run-03_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-03_task-rest_run-04_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   └── sub-CMH00000207_ses-03_task-rest_run-05_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   └── surface
+│       ├── sub-CMH00000207_ses-03_task-rest_run-01_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-03_task-rest_run-02_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-03_task-rest_run-03_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-03_task-rest_run-04_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       └── sub-CMH00000207_ses-03_task-rest_run-05_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+├── ses-04
+│   ├── sub_cortical
+│   │   ├── sub-CMH00000207_ses-04_task-rest_run-01_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-04_task-rest_run-02_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-04_task-rest_run-03_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-04_task-rest_run-04_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   └── sub-CMH00000207_ses-04_task-rest_run-05_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   └── surface
+│       ├── sub-CMH00000207_ses-04_task-rest_run-01_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-04_task-rest_run-02_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-04_task-rest_run-03_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-04_task-rest_run-04_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       └── sub-CMH00000207_ses-04_task-rest_run-05_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+├── ses-05
+│   ├── sub_cortical
+│   │   ├── sub-CMH00000207_ses-05_task-rest_run-01_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-05_task-rest_run-02_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-05_task-rest_run-03_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   ├── sub-CMH00000207_ses-05_task-rest_run-04_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   │   └── sub-CMH00000207_ses-05_task-rest_run-05_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+│   └── surface
+│       ├── sub-CMH00000207_ses-05_task-rest_run-01_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-05_task-rest_run-02_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-05_task-rest_run-03_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       ├── sub-CMH00000207_ses-05_task-rest_run-04_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+│       └── sub-CMH00000207_ses-05_task-rest_run-05_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+└── ses-06
+    ├── sub_cortical
+    │   ├── sub-CMH00000207_ses-06_task-rest_run-01_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+    │   ├── sub-CMH00000207_ses-06_task-rest_run-02_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+    │   └── sub-CMH00000207_ses-06_task-rest_run-03_space-fsLR_seg-Tian_den-91k_stat-mean_timeseries.ptseries.nii
+    └── surface
+        ├── sub-CMH00000207_ses-06_task-rest_run-01_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+        ├── sub-CMH00000207_ses-06_task-rest_run-02_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+        └── sub-CMH00000207_ses-06_task-rest_run-03_space-fsLR_seg-Glasser_den-91k_stat-mean_timeseries.ptseries.nii
+```
+
+
+
+
 
 All the code used in analysis up until MDS analysis are stored in 
 ```
