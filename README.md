@@ -121,13 +121,24 @@ jbyambadorj@noether:/projects/jbyambadorj/DEEP_study/data/processed/inputs/DEEPP
 ```
 
 
-
-
-
-All the code used in analysis up until MDS analysis are stored in 
+All the code used for the analysis including MDS are stored in:  
 ```
-/projects/jbyambadorj/DEEP_study/code/src
+/projects/jbyambadorj/DEEP_study/code
 ```
+
+
+jbyambadorj@noether:/projects/jbyambadorj/DEEP_study/code$ tree
+.
+├── check_ROI.py  - For checking NaN ROIs. will create a table. 
+├── DEEPPD_con_matrix.py - DEEPPD connectivity matrix script. Will create RSFCs from BOLD runs, pairwise correlation matrix between subjects, and compute statistical values. 
+├── DEEPPI_con_matrix.py - DEEPPI connectivity matrix script. 
+├── find_runsAnd_sessions.py - Script for mapping all the runs and sessions within a subject data. Reports the output as a table.  
+├── find_subject_sessions.py - Simplified version of the above script for creating a table mapping only the sessions to subject. 
+├── mds_noPreS.py -> /projects/jbyambadorj/mds_noPreS.py
+└── src
+    └── activate_myenv.sh
+
+
 The libraries that you need for running the code are stored in my virtual env and you can activate the env by typing on terminal
 ```
 source /projects/jbyambadorj/DEEP_study/code/src/activate_myenv.sh
