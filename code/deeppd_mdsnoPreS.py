@@ -6,41 +6,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-# populate the mysubjects list
-
-def get_subjects(mydir: str) -> list[str]:
-    """ Populate the MY_SUBJECTS list by existing subject IDs in mydir (name of your directory with subject data).
-    Precondition: mypath needs to be a valid input that can be transformed into path object.
-    """
-    sub_list = [] 
-    mypath = os.path.join(mydir)
-    lst = os.listdir(mypath)
-    for item in lst:
-        if "sub-CMH" in item:
-            sub_list.append(item)
-    return sub_list 
-
-MY_SUBJECTS = get_subjects("/projects/jbyambadorj/func_con_matrix/DEEPPI_rerun")
-MY_SUBJECTS.sort()
-
-
-MY_REGIONS = ['default mode',
- 'dorsal attention',
- 'frontoparietal',
- 'limbic',
- 'somatosensory',
- 'subcortical',
- 'ventral attention',
- 'visual']
-# contains the id of every subject in DEEPPD
-# this list is a modified version of the MY_SUBJECTS
-
-
-BASE_DIR = "/projects/jbyambadorj/func_con_matrix/DEEPPI_rerun"
+BASE_DIR = "/projects/jbyambadorj/func_con_matrix/DEEPPD_rerun"
 
 class ConnectivityMatrix:
+    """Class for creating resting state functional connectivity (RSFC) matrices from parcellated timeseries outputs from xcp-D. 
+    """
+
     def __init__(self, session_name: str, subject_name: str) -> None:
-        """Initialize the class by providing the session number of the data."""
+        """
+        Parameters:
+            session_name: ses-0$i (where 1 <= i <= 4)
+            subject_name: full ID of the subject e.g. sub-CMH00000010
+        """
         self.session_name = session_name
         self.subj_name = subject_name
         self.joined_paths = self._get_ptseries_paths()
@@ -155,9 +132,9 @@ class ConnectivityMatrix:
         ts_sorted = pd.concat(frames, axis = 1)
         return ts_sorted
 
+
     def _extract_NaN(self) -> list[str]:
-        """Mutate the sorted timeseries DataFrame by droppin NaN values and return a list of ROI columns containing those NaN vals.  
-        """
+        """Mutate the sorted timeseries DataFrame by droppin NaN values and return a list of ROI columns containing those NaN vals."""
         res = []
         pd_dataframe = self.ts_sorted
         for column in pd_dataframe:
@@ -166,14 +143,12 @@ class ConnectivityMatrix:
                 if np.isnan(value):
                     res.append(column)
                     break # break out from the inner loop so we only count the columns
-        self.ts_sorted = self.ts_sorted.dropna(axis = 1)
-        # drop R_PReS_ROI for all subjects
-        self.ts_sorted = self.ts_sorted.drop("R_PreS_ROI", axis=1, errors="ignore") 
+        self.ts_sorted = self.ts_sorted.drop("R_PreS_ROI", axis=1, errors="ignore")
         return res
 
 
     def _connectivity_matrix(self) -> pd.DataFrame:
-        """Compute the connectivity matrix."""
+        """Compute the connectivity matrix by calculating Fischer Z value correlations."""
         corZ_pd = self.ts_sorted.corr()
 
         for atlas_name in self.atlas_dict:
@@ -186,6 +161,7 @@ class ConnectivityMatrix:
 
         corZ_pd.index = [corZ_pd.columns]
         return corZ_pd
+
 
     # for fingerprinting step
     def extract_matrix_triangle(self) -> list:
@@ -204,7 +180,7 @@ class ConnectivityMatrix:
             raise ValueError
 
 
-# var = ConnectivityMatrix("ses-02", "sub-CMH00000010")
+var = ConnectivityMatrix("ses-02", "sub-CMH00000010")
 
 
 def find_sessions(mydirectory_name: str) -> dict[str, list[str]]:
@@ -236,7 +212,7 @@ def extract_NaNs(ts_runs: dict[pd.DataFrame]) -> dict[pd.DataFrame]:
     res = {}
     for run in ts_runs:
         # drop R_PreS_ROI ROI across all subjects since this ROI is sometimes censored and sometimes not in subjects. 
-        ts_runs[run].drop("R_PreS_ROI", axis = 1, inplace = True) # inplace mutates the ts_df value in dict 
+        ts_runs[run].drop("R_PreS_ROI", axis = 1, inplace = True, errors="ignore") # inplace mutates the ts_df value in dict 
         res[run] = ts_runs[run].dropna(axis = 1, how='all') # drop a column containing all NaN values
     return res
 
@@ -353,20 +329,17 @@ def avg_by_runs_in_sessions() -> dict[str, list[list[float]]]:
 
 by_sessions_res = avg_by_runs_in_sessions()
 
-for key in final_res:
-    print(f"{key} has unique vector lenght of {len(final_res[key])}")
-
+# uncomment below if you wanna do the analysis by averaging across all sessions
+# by_subjects_res = create_subject_to_mean_vectors() 
+# for key in final_res:
+#     print(f"{key} has unique vector lenght of {len(final_res[key])}")
 
 def save_as_csv_file(myout):
-
     mydf = pd.DataFrame.from_dict(myout).tranpose()
-
     print("enter output name with trailing .csv")
-
-    outname = input()
-
+    outname = input() 
     mydf.to_csv(outname)
 
 
-
 print("Call save_as_csv_file(by_sessions_res) to save the dictionary output with averaged values across runs as a csv table.")
+
