@@ -26,27 +26,28 @@ Project Organization
     │
     ├── code/src           <- Source code for use in this project (virtual environments, bash scripts, etc)
 
-
-Input files used for preprocessing steps in both DEEPPI and DEEPPD studies are stored in the directory: 
+## Data Organization 
+The input files used for preprocessing steps in both the **DEEPPI** and **DEEPPD** studies are stored in:
 ```
 /mnt/tigrlab/projects/jbyambadorj/DEEP_study/data/raw
 ```
-In the above dir, the dir for DEEPPI study is left as a symbolic link pointing to:
+In this directory, note that the folder corresponding to the DEEPPI study is a symbolic link that points to:
 ```
 /projects/jbyambadorj/DEEPPI_fmap_intended
 ```
 
-The preprocessed data from fMRIprep and xcp-D pipelines are located in the directory: 
+Data preprocessed using the **fMRIPrep** and** XCP-D ** pipelines are stored in:
 ```
 /projects/jbyambadorj/DEEP_study/data/processed
 ```
 In this dir, you will find all the post and preprocessed data along with mriqc csv outputs from the summer. (mriQC was failing for the 
 fmap intended for data, so you might need to rerun mriQC by changing the script to appropriate one) 
-Furthermore in this dir, you will find Glasser and Tian only parcellated timeseries files that I used mainly for the analysis: 
+
+You will also find parcellated timeseries files (Glasser and Tian atlases) used in the analysis under:
 ```
 /projects/jbyambadorj/DEEP_study/data/processed/inputs
 ```
-Inside this dir, if you go to one of the study specific subdir, you will find the Glasser and Tian parcellated timeseries xcp-D outputs organized in the following way: 
+Within each study-specific subdirectory, Glasser and Tian parcellated timeseries files from XCP-D are organized as follows:
 ```
 jbyambadorj@noether:/projects/jbyambadorj/DEEP_study/data/processed/inputs/DEEPPI_rerun/sub-CMH00000207$ tree
 .
@@ -121,39 +122,40 @@ jbyambadorj@noether:/projects/jbyambadorj/DEEP_study/data/processed/inputs/DEEPP
 ```
 
 
-All the code used for the analysis including MDS are stored in:  
+## Code Repository: 
+All analysis scripts (including python scripts for extracting unique vectorized outputs used in the MDS analysis) are stored in:
 ```
 /projects/jbyambadorj/DEEP_study/code
 ```
 
-
+The structure is as follows: 
+```
 jbyambadorj@noether:/projects/jbyambadorj/DEEP_study/code$ tree
 .
-├── check_ROI.py  - For checking NaN ROIs. will create a table. 
-├── DEEPPD_con_matrix.py - DEEPPD connectivity matrix script. Will create RSFCs from BOLD runs, pairwise correlation matrix between subjects, and compute statistical values. 
-├── DEEPPI_con_matrix.py - DEEPPI connectivity matrix script. 
-├── find_runsAnd_sessions.py - Script for mapping all the runs and sessions within a subject data. Reports the output as a table.  
-├── find_subject_sessions.py - Simplified version of the above script for creating a table mapping only the sessions to subject. 
-├── mds_noPreS.py -> /projects/jbyambadorj/mds_noPreS.py
+├── check_ROI.py  - Identifies ROIs with NaN values in pd DataFrame and outputs a summary table
+├── DEEPPD_con_matrix.py - Generates RSFC matrices, computes pairwise subject correlations and statistics 
+├── DEEPPI_con_matrix.py - Similar to above but for DEEPPI  
+├── find_runsAnd_sessions.py - Maps all runs and sessions per subject; outputs a summary table 
+├── find_subject_sessions.py - Simplified version; maps sessions per subject only
+├── deeppd_mds_noPreS.py - Extract vectorized unique lower triangular values that are used as input for MDS analysis. 
+├── deeppi_mds_noPreS.py - Similar to above, but for DEEPPI
+├── deeppd_jsonEdit.py - Edits fmap json files to map appropriate fmap run to its corresponding func runs. 
+├── deeppi_jsonEdit.py - A script is provided for mapping functional runs to their corresponding fieldmap runs in the DEEPPD study. The mapping follows the structure:
+{fmap_run01: [func_run01, func_run02], fmap_run02: [func_run03, func_run04], fmap_run03: [func_run05]}. If a fieldmap run (e.g., fmap_run03) is missing while all five functional runs are present, the script will skip mapping for the unmatched functional run (func_run05). In such cases, fMRIPrep will default to synthetic fieldmap correction for that run instead of using an actual acquired fieldmap.
 └── src
-    └── activate_myenv.sh
+    └── activate_myenv.sh - For activating the virtual environment with the necessary packages installed. 
+```
 
-
-The libraries that you need for running the code are stored in my virtual env and you can activate the env by typing on terminal
+The libraries/dependencies that you need for running the code are stored in my virtual env and you can activate the env by typing on terminal
 ```
 source /projects/jbyambadorj/DEEP_study/code/src/activate_myenv.sh
-
-
 ```
-Python scripts DEEPPD_con_matrix.py and DEEPPI_con_matrix.py are for creating the Pairwise Distance Matrices and calculation of statistical values such as within-subject mean and between-subjects mean.
-
-
-Note that the pd Dataframe objects that are created from the parcellated timeseries file drops the PreS ROI regardless of whether this ROI is NaN or not in the study. 
-You can check which ROIs are NaNs only only by running the script: 
+In the scripts DEEPPD_con_matrix and DEEPPI_con_matrix, note that R_PreS_ROI is automatically dropped from the pandas DataFrame, regardless of whether it contains NaNs.
+To identify which ROIs contain NaNs, use:
 ```
 /projects/jbyambadorj/DEEP_study/code/check_ROI.py
 ```
-It will generate a table of which ROIs have NaNs only as shown in the small example below: 
+This script prompts for a directory path and generates a summary table. For example:
 
 ```
 Enter the path you want to check for NaN cols
@@ -174,9 +176,7 @@ NA ROIs in the sub-CMH00000069-ses-05 are: ['R_PreS_ROI', 'R_H_ROI', 'L_H_ROI']
 NA ROIs in the sub-CMH00000069-ses-06 are: ['R_PreS_ROI', 'R_H_ROI', 'L_H_ROI']
 ```
 
-The script assumes that all functional runs within a session will likely have same NaNs to reduce the search time. So keep in mind that the script is not thoroughly checking every single run in the subject data and instead just chooses 
-1 random func data in a given session. 
-
+Note: The script assumes all functional runs within a session have the same NaN pattern. To speed up processing, it checks only one random run per session, not all runs.
 
 
 
