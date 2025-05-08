@@ -36,7 +36,7 @@ In this directory, note that the folder corresponding to the DEEPPI study is a s
 /projects/jbyambadorj/DEEPPI_fmap_intended
 ```
 
-Data preprocessed using the **fMRIPrep** and** XCP-D ** pipelines are stored in:
+Data preprocessed using the **fMRIPrep** and **XCP-D** pipelines are stored in:
 ```
 /projects/jbyambadorj/DEEP_study/data/processed
 ```
