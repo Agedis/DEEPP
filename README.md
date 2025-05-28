@@ -9,21 +9,13 @@ Project Organization
 
     .
     ├── README.md          <- The top-level 
-    ├── .gitignore         <- Files to not upload to github - by default includes /data
-    ├── LICENSE            <- usage license if applicable
+    ├── DEEP Codebook.pdf  <- Data Dictionary Codebook for DEEP Study. 
     ├── data
-    │   ├── processed      <- The final dataset (can include subfolders etc)
-    │   └── raw            <- The original dataset, generally a link to minimally preprocessed data
+    │   ├── processed      <- The final processed dataset from xcp-D and fMRIprep pipelines. 
+    │   └── raw            <- The original dataset from the archive after json editing fieldmap files. 
     │
-    ├── notebooks          <- Jupyter/R notebooks for analysis workflow - Naming should begin with a number, followed by an underscore and a description (e.g. 01_compile_demographics.Rmd)
-    │
-    ├── docs/references    <- Data dictionaries, manuals, and all other explanatory materials
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment (if applicable)
-    │
+    ├── notebooks/ reports <- R notebooks and generated pdf files for fd_mean analysis. 
+    │        
     ├── code/src           <- Source code for use in this project (virtual environments, bash scripts, etc)
 
 ## Data Organization 
