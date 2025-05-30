@@ -8,11 +8,11 @@ Project Organization
 -----------------------------------
 
     .
-    ├── README.md          <- The top-level 
+    ├── README.md          
     ├── DEEP Codebook.pdf  <- Data Dictionary Codebook for DEEP Study. 
     ├── data
     │   ├── processed      <- The final processed dataset from xcp-D and fMRIprep pipelines. 
-    │   └── raw            <- The original dataset from the archive after json editing fieldmap files. 
+    │   └── raw            <- The original dataset pulled from the archive after making IntendedFor changes on fmap.json files. 
     │
     ├── notebooks/ reports <- R notebooks and generated pdf files for fd_mean analysis. 
     │        
