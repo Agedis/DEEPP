@@ -10,6 +10,7 @@ Project Organization
     .
     ├── README.md          
     ├── DEEP Codebook.pdf  <- Data Dictionary Codebook for DEEP Study. 
+    ├── carpet_plot_documentation.pdf <- Documentation for Carpet plot. 
     ├── data
     │   ├── processed      <- The final processed dataset from xcp-D and fMRIprep pipelines. 
     │   └── raw            <- The original dataset pulled from the archive after making IntendedFor changes on fmap.json files. 
